@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function PersonalLibrary() {
     return (
         <>
@@ -16,6 +18,7 @@ function PersonalLibrary() {
                             <p className="u-text u-text-default u-text-3">
                             Sample text. Click to select the text box. Click again or double click to start editing the text.
                             </p>
+                            <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                         </div>
                         </div>
                         <div 
@@ -28,6 +31,7 @@ function PersonalLibrary() {
                             <p className="u-text u-text-default u-text-5">
                             Sample text. Click to select the text box. Click again or double click to start editing the text.
                             </p>
+                            <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                         </div>
                         </div>
                         <div 
@@ -40,6 +44,7 @@ function PersonalLibrary() {
                             <p className="u-text u-text-default u-text-7">
                             Sample text. Click to select the text box. Click again or double click to start editing the text.
                             </p>
+                            <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                         </div>
                         </div>
                     </div>

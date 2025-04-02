@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Catalogue() {
     return (
         <>
@@ -20,12 +22,7 @@ function Catalogue() {
                                         <div className="u-product-control u-product-desc u-text">
                                         Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.
                                         </div>
-                                        <a
-                                        href="#popup-249a"
-                                        className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button"
-                                        >
-                                        Details
-                                        </a>
+                                        <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                                     </div>
                                 </div>
 
@@ -42,12 +39,7 @@ function Catalogue() {
                                         <div className="u-product-control u-product-desc u-text">
                                         Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.
                                         </div>
-                                        <a
-                                        href="#popup-249a"
-                                        className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button"
-                                        >
-                                        Details
-                                        </a>
+                                        <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                                     </div>
                                 </div>
 
@@ -64,12 +56,7 @@ function Catalogue() {
                                         <div className="u-product-control u-product-desc u-text">
                                         Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.
                                         </div>
-                                        <a
-                                        href="#popup-249a"
-                                        className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button"
-                                        >
-                                        Details
-                                        </a>
+                                        <Link to="/details" className="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-dialog-link u-payment-button">Details</Link>
                                     </div>
                                 </div>
 
