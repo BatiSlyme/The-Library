@@ -1,6 +1,23 @@
 import { Link } from 'react-router-dom';
+import React from "react";
+import { useAuth } from '../../api/AuthContext';
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+        await signOut(auth);
+        navigate('/');
+        } catch (error) {
+        console.error("Error signing out:", error.message);
+        }
+    };
+
     return (
         <>
             <header className="u-clearfix u-header u-header" id="sec-2de6">
@@ -18,13 +35,36 @@ function Header() {
                     </div>
                     <div className="u-custom-menu u-nav-container">
                         <ul className="u-nav u-unstyled u-nav-1">
+                            
                         <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/" style={{ padding: '13px 27px' }}>Home</Link></li>
-                        <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/login" style={{ padding: '13px 27px' }}>Login</Link></li>
-                        <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/register" style={{ padding: '13px 27px' }}>Register</Link></li>
-                        <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/user-profile" style={{ padding: '13px 27px' }}>User Profile</Link></li>
-                        <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/personal-library" style={{ padding: '13px 27px' }}>Personal Library</Link></li>
+
+                        {!user && (
+                            <>
+                                <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/login" style={{ padding: '13px 27px' }}>Login</Link></li>
+                                <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/register" style={{ padding: '13px 27px' }}>Register</Link></li>
+                            </>
+                        )}
+
+                        {user && (
+                            <>
+                                <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/user-profile" style={{ padding: '13px 27px' }}>User Profile</Link></li>
+                                <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/personal-library" style={{ padding: '13px 27px' }}>Personal Library</Link></li>
+                            </>
+                        )}
+
                         <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/catalogue" style={{ padding: '13px 25px' }}>Catalogue</Link></li>
                         <li className="u-nav-item"><Link className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" to="/about" style={{ padding: '13px 25px' }}>About</Link></li>
+
+                        {user && (
+                            <>
+                                <li className="u-nav-item">
+                                <button className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" onClick={handleLogout} style={{ padding: '13px 27px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+                                    Logout
+                                </button>
+                                </li>
+                            </>
+                        )}
+                        
                         </ul>
                     </div>
                     </nav>
