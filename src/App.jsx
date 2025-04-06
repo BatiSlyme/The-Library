@@ -1,5 +1,9 @@
+import { auth } from './firebase';
+import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from './api/AuthContext';  
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
+
 import About from "./components/About/About";
 import Catalogue from "./components/Catalogue/Catalogue";
 import Details from "./components/Details/Details";
@@ -10,18 +14,18 @@ import Login from "./components/Login/Login";
 import PersonalLibrary from "./components/PersonalLibrary/PersonalLibrary";
 import UserProfile from "./components/UserProfile/UserProfile";
 import Register from "./components/Register/Register";
+import Create from './components/Create/Create';
+import Edit from './components/Edit/Edit';
+import CommentSection from './components/CommentSection/CommentSection';
 
-import { auth } from './firebase';
-import { onAuthStateChanged } from "firebase/auth";
-import { useAuth } from './api/AuthContext';  // Assuming AuthContext is exported from api/AuthContext
 
 function App() {
-  const { user } = useAuth();  // Access user from AuthContext
+  const { user } = useAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("User is logged in: ", user);
+        console.log("User is logged in");
       } else {
         console.log("No user logged in");
       }
@@ -38,7 +42,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/catalogue" element={<Catalogue />} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/details/:bookId" element={<Details />} />
 
         {/* Login and Register routes are only available if there's no user */}
         {!user && (
@@ -51,6 +55,9 @@ function App() {
         {/* Private Routes - Visible to authenticated users */}
         <Route path="/personal-library" element={user ? <PersonalLibrary /> : <Navigate to="/login" />} />
         <Route path="/user-profile" element={user ? <UserProfile /> : <Navigate to="/login" />} />
+        <Route path="/create" element={user ? <Create /> : <Navigate to="/login" />} />
+        <Route path="/edit/:bookId" element={user ? <Edit /> : <Navigate to="/login" />} />
+        <Route path="/comment-section" element={user ? <CommentSection /> : <Navigate to="/login" />} />
       </Routes>
       <Footer />
     </Router>

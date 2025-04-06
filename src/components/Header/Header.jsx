@@ -68,7 +68,7 @@ function Header() {
                         </ul>
                     </div>
                     </nav>
-                    <h2 className="u-text u-text-default u-text-1">THE LIBRARY</h2>
+                    <h2 className="u-text u-text-default u-text-1"><Link to="/">THE LIBRARY</Link></h2>
                     <nav className="u-menu u-menu-one-level u-offcanvas u-menu-3">
                     <div className="menu-collapse">
                         <a className="u-button-style u-hamburger-link u-nav-link" aria-label="Open menu" aria-controls="627f" href="#">

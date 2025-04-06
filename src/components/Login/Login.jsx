@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { auth } from "../../firebase"; 
+import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ function Login() {
     };
 
     return (
-        <section className="u-align-center u-black u-clearfix u-container-align-center u-section-7" id="sec-559a">
+        <section className="u-align-center u-black u-clearfix u-container-align-center u-section-10" id="sec-559a">
             <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">
                 <div className="data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
                     <div className="u-gutter-0 u-layout">
@@ -38,39 +38,50 @@ function Login() {
                                     <div className="u-form u-form-1">
                                         <form onSubmit={handleLogin} className="u-clearfix u-form-spacing-50 u-form-vertical u-inner-form" style={{ padding: 0 }}>
                                             <div className="u-form-group u-form-name u-form-group-1">
-                                                <label htmlFor="email-cd2c" className="u-form-control-hidden u-label"></label>
+                                                <label htmlFor="name-30a4" className="u-form-control-hidden u-label"></label>
                                                 <input
-                                                    type="email"
-                                                    id="email-cd2c"
-                                                    name="email"
-                                                    className="u-border-2 u-border-white u-input u-input-rectangle u-radius-50 u-input-2"
-                                                    required
+                                                    type="text"
                                                     placeholder="Email"
+                                                    id="name-30a4"
+                                                    name="name"
+                                                    className="u-border-2 u-border-white u-input u-input-rectangle u-radius-50 u-input-1"
+                                                    required
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                 />
                                             </div>
-
-                                            <div className="u-form-group u-form-phone u-form-group-4">
-                                                <label htmlFor="password" className="u-label u-label-4"></label>
+                                            <div className="u-form-email u-form-group u-form-group-2">
+                                                <label htmlFor="email-cd2c" className="u-form-control-hidden u-label"></label>
                                                 <input
                                                     type="password"
-                                                    id="password"
-                                                    name="password"
-                                                    className="u-border-2 u-border-white u-input u-input-rectangle u-radius-50 u-input-4"
+                                                    id="email-cd2c"
+                                                    name="email"
+                                                    className="u-border-2 u-border-white u-input u-input-rectangle u-radius-50 u-input-2"
                                                     required
                                                     placeholder="Password"
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                 />
                                             </div>
-
                                             <div className="u-align-left u-form-group u-form-submit u-form-group-3">
-                                                <button type="submit" className="u-active-white u-black u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-radius-50 u-text-active-black u-text-hover-black u-btn-1">
+                                                <button
+                                                    type="submit"
+                                                    className="u-active-white u-black u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-radius-50 u-text-active-black u-text-hover-black u-btn-1"
+                                                >
                                                     LOGIN
                                                 </button>
                                             </div>
+                                            <input type="submit" value="submit" className="u-form-control-hidden" />
+                                            <div className="u-form-send-message u-form-send-success">
+                                                Thank you! Your message has been sent.
+                                            </div>
+                                            <div className="u-form-send-error u-form-send-message">
+                                                Unable to send your message. Please fix errors then try again.
+                                            </div>
+                                            <input type="hidden" value="" name="recaptchaResponse" />
+                                            <input type="hidden" name="formServices" value="2dbdd793-4186-c402-d481-27ed2a72ed2a" />
                                         </form>
+                                        {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +89,6 @@ function Login() {
                     </div>
                 </div>
             </div>
-            {error && <p>{error}</p>}
         </section>
     );
 }
