@@ -27,14 +27,14 @@ function Create() {
     }
   
     try {
-      const bookId = uuidv4(); 
+      const bookId = uuidv4();
   
       await addDoc(collection(db, 'books'), {
-        id: bookId, 
+        id: bookId,
         name,
         image,
         description,
-        userId: currentUser.uid, 
+        userId: currentUser.uid,
         createdAt: new Date(),
         likes: {} 
       });

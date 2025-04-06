@@ -57,7 +57,7 @@ function App() {
         <Route path="/user-profile" element={user ? <UserProfile /> : <Navigate to="/login" />} />
         <Route path="/create" element={user ? <Create /> : <Navigate to="/login" />} />
         <Route path="/edit/:bookId" element={user ? <Edit /> : <Navigate to="/login" />} />
-        <Route path="/comment-section" element={user ? <CommentSection /> : <Navigate to="/login" />} />
+        <Route path="/comment-section/:bookId" element={user ? <CommentSection /> : <Navigate to="/login" />} />
       </Routes>
       <Footer />
     </Router>

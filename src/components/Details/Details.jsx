@@ -129,7 +129,7 @@ function Details() {
           <h1 className="u-align-left u-text u-text-default u-title u-text-2">{book?.name}</h1>
           <p className="u-align-left u-large-text u-text u-text-variant u-text-3">{book?.description}</p>
           <Link
-            to="/comment-section"
+            to={`/comment-section/${bookId}`}
             className="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius u-btn-1"
           >
             Comments
