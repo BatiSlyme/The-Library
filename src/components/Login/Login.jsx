@@ -19,7 +19,6 @@ function Login() {
             navigate('/');
             console.log("User logged in:", user);
         } catch (error) {
-            console.error("Login error:", error);
             setError("Invalid email or password.");
         }
     };
