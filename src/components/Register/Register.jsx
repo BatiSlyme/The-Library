@@ -47,17 +47,17 @@ function Register() {
             <div className="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
                 <div className="u-layout">
                     <div className="u-layout-row">
-                        <div className="u-align-left u-black u-container-align-left u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-1">
-                            <div className="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-                                <p className="u-text u-text-1">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                                <div className="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="1000" data-image-height="1500"></div>
-                                <h4 className="u-text u-text-2">Mikkel Smith</h4>
-                                <h5 className="u-text u-text-3">Sales Manager</h5>
-                                <p className="u-text u-text-4">Quis viverra nibh cras pulvinar mattis.</p>
-                            </div>
-                        </div>
+                    <div className="u-align-left u-black u-container-align-left u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-1">
+                    <div className="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
+                        <p className="u-text u-text-1">
+                        “The secret of getting ahead is getting started.”
+                        </p>
+                        <div className="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="1000" data-image-height="1500"></div>
+                        <h4 className="u-text u-text-2">Mark Twain</h4>
+                        <h5 className="u-text u-text-3">Author & Humorist</h5>
+                        <p className="u-text u-text-4">One of the most beloved American authors, known for "Adventures of Huckleberry Finn".</p>
+                    </div>
+                    </div>
 
                         <div className="u-align-left u-black u-container-align-left u-container-style u-layout-cell u-left-cell u-size-30 u-layout-cell-2">
                             <div className="u-container-layout u-valign-middle u-container-layout-2">

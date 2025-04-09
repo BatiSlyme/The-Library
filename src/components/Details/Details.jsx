@@ -96,15 +96,23 @@ function Details() {
         <div className="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
           <h1 className="u-align-left u-text u-title u-text-1">Details</h1>
 
-          {/* First span — Go Back Button */}
           <span
-            className="u-file-icon u-icon u-icon-1"
-            onClick={() => navigate(-1)}
-            style={{ cursor: 'pointer' }}
-            title="Go Back"
-          >
-            <img src="/images/93634.png" alt="Go Back" />
-          </span>
+          className="u-file-icon u-icon u-icon-1"
+          onClick={() => navigate(-1)}
+          title="Go Back"
+          style={{
+            cursor: 'pointer',
+            transition: 'filter 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.querySelector('img').style.filter = 'brightness(0) invert(1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.querySelector('img').style.filter = 'none';
+          }}
+        >
+          <img src="/images/93634.png" alt="Go Back" />
+        </span>
 
           {/* Like Button */}
           <span
