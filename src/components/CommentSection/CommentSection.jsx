@@ -16,16 +16,14 @@ function CommentSection() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [comments, setComments] = useState([]);
-  const [bookData, setBookData] = useState(null); // For storing book info
-  const [userMap, setUserMap] = useState({}); // For mapping user IDs to display names
+  const [bookData, setBookData] = useState(null);
+  const [userMap, setUserMap] = useState({}); 
   const { bookId } = useParams();
   const navigate = useNavigate();
 
-  // Fetch book info (title, image) and comments data immediately
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch book details
         const booksRef = collection(db, 'books');
         const bookQuery = query(booksRef, where('id', '==', bookId));
         const bookSnapshot = await getDocs(bookQuery);
@@ -33,14 +31,13 @@ function CommentSection() {
         if (!bookSnapshot.empty) {
           const bookDoc = bookSnapshot.docs[0];
           const bookInfo = bookDoc.data();
-          setBookData(bookInfo); // Set the book data
+          setBookData(bookInfo);
           console.log('Book data:', bookInfo);
         } else {
           setError('Book not found.');
           return;
         }
 
-        // Fetch comments and users for the book
         const commentsRef = collection(db, 'comments');
         const q = query(commentsRef, where('bookId', '==', bookId));
         const querySnapshot = await getDocs(q);
@@ -50,18 +47,15 @@ function CommentSection() {
         }));
         setComments(fetchedComments);
 
-        // Collect all unique user IDs
         const uniqueUserIds = [
           ...new Set(fetchedComments.map((comment) => comment.userId)),
         ];
 
-        // Fetch user display names for each user ID
         const usersCollection = collection(db, 'users');
         const userDocs = await Promise.all(
           uniqueUserIds.map((userId) => getDoc(doc(usersCollection, userId)))
         );
 
-        // Create a mapping of user IDs to display names
         const userMapData = {};
         userDocs.forEach((userDoc, i) => {
           const userId = uniqueUserIds[i];
@@ -72,16 +66,15 @@ function CommentSection() {
             userMapData[userId] = 'Deleted User';
           }
         });
-        setUserMap(userMapData); // Set the user display names
+        setUserMap(userMapData);
       } catch (error) {
         setError('Error fetching data: ' + error.message);
       }
     };
 
-    fetchData(); // Trigger the fetch on component mount
-  }, [bookId]); // Re-fetch if bookId changes
+    fetchData();
+  }, [bookId]); 
 
-  // Handle comment submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
   

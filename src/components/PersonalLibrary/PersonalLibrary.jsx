@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db, auth } from '../../firebase'; // Assuming you have set up Firebase
-import { collection, getDocs, query, where } from 'firebase/firestore'; // Firestore methods
-import BookEntryPersonal from '../BookEntryPersonal/BookEntryPersonal'; // Import the BookEntryPersonal component
+import { db, auth } from '../../firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import BookEntryPersonal from '../BookEntryPersonal/BookEntryPersonal';
 
 function PersonalLibrary() {
     const [books, setBooks] = useState([]);
@@ -32,7 +32,6 @@ function PersonalLibrary() {
     }
 
     const handleDeleteBook = (bookId) => {
-        // Remove the deleted book from the books list in state
         setBooks(books.filter((book) => book.id !== bookId));
       };
 

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 function BookEntryCatalogue({ product }) {
 
-  // Truncate the description
   const truncateDescription = (description, length = 100) => {
     return description.length > length ? description.substring(0, length) + '...' : description;
   };
