@@ -136,8 +136,22 @@ function CommentSection() {
       }
     >
       <div className="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
-        <span className="u-file-icon u-icon u-icon-1" onClick={handleGoBack} style={{ cursor: 'pointer' }}>
-          <img src="/images/93634.png" alt="Go back" />
+        <span
+          className="u-file-icon u-icon u-icon-1"
+          onClick={handleGoBack}
+          title="Go Back"
+          style={{
+            cursor: 'pointer',
+            transition: 'filter 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.querySelector('img').style.filter = 'brightness(0) invert(1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.querySelector('img').style.filter = 'none';
+          }}
+        >
+          <img src="/images/93634.png" alt="Go Back" />
         </span>
 
         {bookData && (

@@ -85,14 +85,16 @@ function Details() {
       <section
         className="u-align-left u-clearfix u-image u-shading u-section-6"
         style={{
-          backgroundImage: `url(${book?.image})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${book?.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundBlendMode: 'darken', // <--- important!
         }}
         id="block-2"
         data-image-width="1280"
         data-image-height="853"
       >
+
         <div className="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
           <h1 className="u-align-left u-text u-title u-text-1">Details</h1>
 
