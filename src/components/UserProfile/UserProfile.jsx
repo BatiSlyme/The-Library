@@ -7,13 +7,8 @@ import { Navigate } from "react-router-dom";
 
 function UserProfile() {
   const { user } = useAuth();
-  const [editable, setEditable] = useState({
-    name: false,
-    aboutMe: false,
-    age: false,
-    location: false,
-    imageUrl: false,
-  });
+  const [error, setError] = useState(null);
+  const [editable, setEditable] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     aboutMe: '',
@@ -38,22 +33,16 @@ function UserProfile() {
           aboutMe: data.aboutMe || '',
           age: data.age || '',
           location: data.location || '',
-          imageUrl: data.imageUrl || '', 
+          imageUrl: data.imageUrl || '',
         });
       } else {
         console.error("No such document!");
+
       }
     };
 
     fetchUserData();
   }, [user]);
-
-  const handleEdit = (field) => {
-    setEditable((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,62 +52,68 @@ function UserProfile() {
     }));
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    // data will be saved when edit is set ON
+    if (!editable) {
+      return;
+    }
+
     try {
-      const userRef = doc(db, "users", user.uid); 
+      const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, {
         name: formData.name,
         aboutMe: formData.aboutMe,
         age: formData.age,
         location: formData.location,
-        imageUrl: formData.imageUrl, 
+        imageUrl: formData.imageUrl,
       });
-      setEditable({
-        name: false,
-        aboutMe: false,
-        age: false,
-        location: false,
-        imageUrl: false,
-      });
+      //if we save succcessfully, we can set editable to false
+      setEditable(false);
+      setError(null);
     } catch (error) {
       console.error("Error updating user profile:", error);
+      setError(error.message);
     }
   };
-
-  const isEditing = Object.values(editable).includes(true);
 
   return (
     <section className="u-align-center u-clearfix u-container-align-center u-grey-5 u-section-4" id="sec-9690">
       <div className="u-clearfix u-sheet u-sheet-1">
         <h1 className="u-text u-text-1">Profile</h1>
-
-        {/* Editable Profile Image */}
-        <div className="editable-field">
-          <div className="profile-image-container" style={{ marginBottom: '10px' }}>
-            {editable.imageUrl ? (
-              <input
-                type="text"
-                id="imageUrl"
-                name="imageUrl"
-                value={formData.imageUrl}
-                onChange={handleChange}
-                className="u-input u-input-rectangle u-white"
-                style={{ marginRight: '10px' }}
-              />
-            ) : (
-              <div
-                className="u-image u-image-circle u-image-1"
-                style={{ backgroundImage: `url(${formData.imageUrl || '/images/default-profile.jpg'})` }}
-              ></div>
-            )}
-            <FaEdit onClick={() => handleEdit("imageUrl")} />
+        {editable ? (
+          <div style={{ color: 'orange', marginBottom: '1em', fontWeight: 'bold' }}>
+            Editing mode: You can update your profile.
           </div>
-        </div>
+        ) : (
+          <div style={{ color: 'gray', marginBottom: '1em' }}>
+            Viewing mode: Click "Edit" to update your profile.
+          </div>
+        )}
 
-        {/* Editable Name */}
-        <div className="editable-field">
-          <label htmlFor="name">Name:</label>
-          {editable.name ? (
+        <form onSubmit={handleSave}>
+          {/* Editable Profile Image */}
+          <div className="editable-field">
+            <label htmlFor="name">Image:</label>
+            {/* <div className="profile-image-container" style={{ marginBottom: '10px' }}> */}
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              value={formData.imageUrl}
+              onChange={handleChange}
+              className="u-input u-input-rectangle u-white"
+              style={{ marginRight: '10px' }}
+              disabled={!editable}
+            />
+            <img src={formData.imageUrl} style={{ width: '100px', height: '100px', objectFit: 'cover' }} alt="Profile" />
+            {/* </div> */}
+          </div>
+
+          {/* Editable Name */}
+          <div className="editable-field">
+            <label htmlFor="name">Name:</label>
             <input
               type="text"
               id="name"
@@ -126,17 +121,15 @@ function UserProfile() {
               value={formData.name}
               onChange={handleChange}
               className="u-input u-input-rectangle u-white"
+              disabled={!editable}
+              required
             />
-          ) : (
-            <p>{formData.name}</p>
-          )}
-          <FaEdit onClick={() => handleEdit("name")} />
-        </div>
 
-        {/* Editable About Me */}
-        <div className="editable-field" style={{ backgroundColor: editable.aboutMe ? '#f0f0f0' : 'transparent' }}>
-          <label htmlFor="aboutMe">About Me:</label>
-          {editable.aboutMe ? (
+          </div>
+
+          {/* Editable About Me */}
+          <div className="editable-field" style={{ backgroundColor: editable.aboutMe ? '#f0f0f0' : 'transparent' }}>
+            <label htmlFor="aboutMe">About Me:</label>
             <textarea
               id="aboutMe"
               name="aboutMe"
@@ -144,17 +137,15 @@ function UserProfile() {
               onChange={handleChange}
               className="u-input u-input-rectangle u-white"
               style={{ border: editable.aboutMe ? 'none' : '' }}
+              disabled={!editable}
+              required
             />
-          ) : (
-            <p>{formData.aboutMe}</p>
-          )}
-          <FaEdit onClick={() => handleEdit("aboutMe")} />
-        </div>
 
-        {/* Editable Age */}
-        <div className="editable-field">
-          <label htmlFor="age">Age:</label>
-          {editable.age ? (
+          </div>
+
+          {/* Editable Age */}
+          <div className="editable-field">
+            <label htmlFor="age">Age:</label>
             <input
               type="text"
               id="age"
@@ -162,17 +153,15 @@ function UserProfile() {
               value={formData.age}
               onChange={handleChange}
               className="u-input u-input-rectangle u-white"
+              disabled={!editable}
+              required
             />
-          ) : (
-            <p>{formData.age}</p>
-          )}
-          <FaEdit onClick={() => handleEdit("age")} />
-        </div>
 
-        {/* Editable Location */}
-        <div className="editable-field">
-          <label htmlFor="location">Location:</label>
-          {editable.location ? (
+          </div>
+
+          {/* Editable Location */}
+          <div className="editable-field">
+            <label htmlFor="location">Location:</label>
             <input
               type="text"
               id="location"
@@ -180,22 +169,39 @@ function UserProfile() {
               value={formData.location}
               onChange={handleChange}
               className="u-input u-input-rectangle u-white"
+              disabled={!editable}
+              required
             />
-          ) : (
-            <p>{formData.location}</p>
-          )}
-          <FaEdit onClick={() => handleEdit("location")} />
-        </div>
+          </div>
 
-        {/* Show Save Changes Button only if any field is in edit mode */}
-        {isEditing && (
-          <button onClick={handleSave} className="u-button u-button-submit">
-            Save Changes
-          </button>
-        )}
+          <div style={styles.buttonsContainer}>
+            <button type="submit" style={styles.button}>
+              Save Changes
+            </button>
+            <button onClick={() => setEditable(true)} style={styles.button}>
+              Edit
+            </button>
+          </div>
+          {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
+
+        </form>
+
+
       </div>
     </section>
   );
 }
+
+const styles = {
+  button: {
+    backgroundColor: 'lightblue', borderRadius: 5, padding: 10, width: '150px'
+  },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '20%',
+  },
+}
+
 
 export default UserProfile;
